@@ -19,17 +19,32 @@ Questo programma è una beta, perfino l'html fa cagare, non giudicare!
 </head>
 
 <body>
-	<!-- Navigation -->
+
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
 
 			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
 				<a class="navbar-brand" href="/"><i class="fa fa-code fa-1x"></i>
 					Von Neumann Simulator </a>
 			</div>
+			<div class="collapse navbar-collapse "
+				id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav ">
+					<li><a href="https://github.com/Guglio95/vonsimulator"><i class="fa fa-code-fork"></i> Source Code</a></li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
 		</div>
 		<!-- /.container -->
 	</nav>
+
 
 	<!-- Container della pagina -->
 	<div class="container-fluid">
@@ -41,8 +56,8 @@ Questo programma è una beta, perfino l'html fa cagare, non giudicare!
 				<!-- <p>Questo simulatore permette di testare e studiare il funzionamento della <b>macchina di Von Neumann</b>.</p>-->
 
 				<!--  Meta SX Pagina (box di scrittura) -->
-				<div class="fix_altezza_row">
-					<div class="col-xs-12 col-sm-7 fix_altezza_col">
+				<div class="">
+					<div class="col-xs-12 col-sm-7 ">
 						<!-- <h3>Istruzioni da eseguire</h3>-->
 						<div id="editor" class="ace_editor">LOAD= 0 DESCRIZIONE: Somma i numeri pari di una sequenza di positivi terminati da 0
 STORE 102 inizializzazione della somma
@@ -63,7 +78,7 @@ END</div>
 					</div>
 
 					<!--  Meta DX Pagina (comandi, stack, output) -->
-					<div class="col-xs-12 col-sm-5 fix_altezza_col">
+					<div class="col-xs-12 col-sm-5 ">
 						<!-- <h3>Comandi</h3>-->
 
 						<div class="row">
@@ -161,7 +176,7 @@ END</div>
 	</div>
 	<!-- /.container -->
 	<footer>
-		<p class="text-center" style="padding-top: 15px">Culo chi legge</p>
+		<p class="text-center" style="padding-top: 15px">Andrea Guglielmini 2016</p>
 	</footer>
 
 	<!-- JavaScript -->
