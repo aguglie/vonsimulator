@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<!--
+Questo programma è una beta, perfino l'html fa cagare, non giudicare!
+-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description"
+	content="Simulatore online della macchina di Von Neumann">
+<meta name="author" content="Andrea Guglielmini">
+<title>Simulatore Von Neumann</title>
+<link href="./static/css/bootstrap.min.css" rel="stylesheet">
+<link href="./static/css/font-awesome.min.css" rel="stylesheet">
+<link href="./static/css/custom.css" rel="stylesheet">
+</head>
+
+<body>
+	<!-- Navigation -->
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/"><i class="fa fa-code fa-1x"></i>
+					Von Neumann Simulator </a>
+			</div>
+		</div>
+		<!-- /.container -->
+	</nav>
+
+	<!-- Container della pagina -->
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<!--  Contenuto Pagina -->
+			<div class="col-xs-12 col-sm-12 ">
+				<!--  Titolo -->
+				<h1 class="page-header top0">Simulatore Macchina di Von Neumann</h1>
+				<!-- <p>Questo simulatore permette di testare e studiare il funzionamento della <b>macchina di Von Neumann</b>.</p>-->
+
+				<!--  Meta SX Pagina (box di scrittura) -->
+				<div class="fix_altezza_row">
+					<div class="col-xs-12 col-sm-7 fix_altezza_col">
+						<!-- <h3>Istruzioni da eseguire</h3>-->
+						<div id="editor" class="ace_editor">LOAD= 0 DESCRIZIONE: Somma i numeri pari di una sequenza di positivi terminati da 0
+STORE 102 inizializzazione della somma
+READ lettura del numero
+BEQ 13 salto alla fine del ciclo se il valore letto è 0
+STORE 101 memorizzo il valore letto
+DIV= 2 lo divido per due
+MULT= 2 lo moltiplico per due
+SUB 101 faccio la differenza con il valore letto
+BL 2 se la differenza e minore di 0, il numero letto e dispari
+LOAD 101 se pari, riprendo il valore originario dalla cella 101
+ADD 102 e aggiungo il contenuto della somma corrente
+STORE 102 quindi memorizzo il nuovo valore della somma
+BR 2 fine del ciclo se il numero e pari
+LOAD 102 caricamento della somma
+WRITE e stampa
+END</div>
+					</div>
+
+					<!--  Meta DX Pagina (comandi, stack, output) -->
+					<div class="col-xs-12 col-sm-5 fix_altezza_col">
+						<!-- <h3>Comandi</h3>-->
+
+						<div class="row">
+							<!--  Blocco Box -->
+							<div class="col-sm-12" id="esegui">
+								<div class="panel panel-green">
+									<div class="panel-heading">
+										<div class="row">
+											<div class="col-xs-3">
+												<i class="fa fa-play fa-5x"></i>
+											</div>
+											<div class="col-xs-9 text-center">
+												<div class="huge">Esegui il listato</div>
+												<!-- <h4>Interpreta il listato</h4>-->
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-sm-6">
+								<div class="panel panel-red ">
+									<div class="panel-heading">
+										<div class="row">
+											<div class="col-xs-3">
+												<i class="fa fa-database fa-5x"></i>
+											</div>
+											<div class="col-xs-9 text-center">
+												<div class="huge" id="Accumulatore">n.d.</div>
+												<h4 class="text-center">Valore accumulatore</h4>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-sm-6">
+								<div class="panel panel-primary">
+									<div class="panel-heading">
+										<div class="row">
+											<div class="col-xs-3">
+												<i class="fa fa-file-text-o fa-5x"></i>
+											</div>
+											<div class="col-xs-9 text-center">
+												<div class="huge" id="NastroOut">n.d.</div>
+												<h4 class="text-center">Nastro di Scrittura</h4>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-sm-12">
+								<div class="panel panel-yellow">
+									<div class="panel-heading">
+										<div class="row">
+											<div class="col-xs-2">
+												<i class="fa fa-stack-overflow fa-5x"></i>
+											</div>
+											<div class="col-xs-10">
+												<h2 class="text-center">Stato della Memoria</h2>
+											</div>
+										</div>
+									</div>
+									<div class="table-placeholder" id="MemoriaPH">
+										<h3 class="text-center">Nessuna cella di memoria &egrave;
+											stata utilizzata</h3>
+									</div>
+									<table class="table  table-fixed" id="Memoria">
+										<thead>
+											<tr>
+												<th class="col-xs-4">Indirizzo</th>
+												<th class="col-xs-8">Valore</th>
+											</tr>
+										</thead>
+										<tbody id="Memoria_tbody">
+
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+
+							<!--  ./Blocco Box -->
+						</div>
+					</div>
+				</div>
+
+
+				<!-- ./Contenuto -->
+			</div>
+			<!-- /.Contenuto pagina -->
+		</div>
+		<!-- /.row -->
+	</div>
+	<!-- /.container -->
+	<footer>
+		<p class="text-center" style="padding-top: 15px">Culo chi legge</p>
+	</footer>
+
+	<!-- JavaScript -->
+	<script src="./static/js/jquery.js" type="text/javascript"></script>
+	<script src="./static/js/bootstrap.js" type="text/javascript"></script>
+	<script src="./static/ace/ace.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="./static/js/custom.js" type="text/javascript"></script>
+
+</body>
+</html>
