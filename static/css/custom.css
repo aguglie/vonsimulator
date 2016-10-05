@@ -10,6 +10,25 @@
     font-size: 40px;
 }
 
+
+.panel-gray {
+    border-color: #5cb85c;
+}
+
+.panel-gray .panel-heading {
+    border-color: #7a7b7a;
+    color: #fff;
+    background-color: #7a7b7a;
+}
+
+.panel-gray a {
+    color: #5cb85c;
+}
+
+.panel-gray a:hover {
+    color: #3d8b3d;
+}
+
 .panel-green {
     border-color: #5cb85c;
 }

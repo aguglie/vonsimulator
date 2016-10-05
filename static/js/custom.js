@@ -1,16 +1,14 @@
-var timer;
-var NextLine;
+var timer;//Timer verso l'esecuzione della prox riga
+var NextLine;//Prossima da eseguire
+var ExecLine;//Correntemente in esecuzione
+var UploadNeeded = true;//devo caricare il codice sul server
 
 $(document).ready(function() {
 	$("#Memoria").hide();//@TODO Bisognerebbe metterlo nel css...
+
 	$( "#esegui" ).click(function() {
-		var code = editor.getValue();
-		$.post( "./server.php", { code: code })
-		.done(function( data ) {
-			//alert("Listato caricato");
-			$("#Memoria_tbody").empty();
-			timer = setTimeout(function(){ exec(); }, 1000);
-		});
+			loadCode();
+			timer = setTimeout(function(){ exec(true); }, 1000);
 	});
 
 });
@@ -20,15 +18,25 @@ editor.setTheme("ace/theme/twilight");
 editor.session.setMode("ace/mode/ruby");
 editor.setOption("firstLineNumber", parseInt(0));
 editor.setFontSize(23); // will set font-size: 10px
+editor.on("change", function(){ UploadNeeded = true; });//Se il codice viene alterato va ricaricato
 
-function exec(){
+function loadCode(){
+	if (UploadNeeded){
+	var code = editor.getValue();
+	$.post( "./server.php", { code: code })
+	.done(function( data ) {
+		//alert("Listato caricato");
+		$("#Memoria_tbody").empty();
+	});
+}
+function exec(topBottom){
 	if (NextLine >= 0) {
 		selectLine(NextLine);
 	}
 	$.getJSON( "./server.php", { exec: "1" } )
 	.done(function( json ) {
 		if (json.result == "OK"){//Il server risponde OK
-			var ExecLine = json.message.ExecLine;
+			ExecLine = json.message.ExecLine;
 			NextLine = json.message.NextLine;
 			var Asking_Data = json.message.Asking_Data;
 			var Accumulatore = json.message.Accumulatore;
@@ -38,14 +46,14 @@ function exec(){
 			if (ExecLine >= 0) {
 				selectLine(ExecLine);
 
-				if (ExecLine != NextLine){//Se non siamo in loop continuo l'esecuzione (La READ è considata un LOOP)
+				if (ExecLine != NextLine && topBottom == true){//Se non siamo in loop continuo l'esecuzione (La READ è considata un LOOP)
 					timer = setTimeout(function(){ exec(); }, 1000);//Schedulo l'esecuzione della riga successiva
 				}
 			}
 			setAccumulatore(Accumulatore);
 			if (NastroOut != null){setNastroOut(NastroOut); }
 			setMemoria(Memoria);
-			if (ExecLine == -1){ 
+			if (ExecLine == -1){
 				alert("Programma terminato");
 			}
 			if (Asking_Data){
