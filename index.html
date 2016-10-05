@@ -127,22 +127,14 @@ Questo programma è una beta, perfino l'html fa cagare, non giudicare!
 				<div class="">
 					<div class="col-xs-12 col-sm-7 ">
 						<!-- <h3>Istruzioni da eseguire</h3>-->
-						<div id="editor" class="ace_editor">LOAD= 0 DESCRIZIONE: Somma i numeri pari di una sequenza di positivi terminati da 0
-STORE 102 inizializzazione della somma
-READ lettura del numero
-BEQ 13 salto alla fine del ciclo se il valore letto è 0
-STORE 101 memorizzo il valore letto
-DIV= 2 lo divido per due
-MULT= 2 lo moltiplico per due
-SUB 101 faccio la differenza con il valore letto
-BL 2 se la differenza e minore di 0, il numero letto e dispari
-LOAD 101 se pari, riprendo il valore originario dalla cella 101
-ADD 102 e aggiungo il contenuto della somma corrente
-STORE 102 quindi memorizzo il nuovo valore della somma
-BR 2 fine del ciclo se il numero e pari
-LOAD 102 caricamento della somma
-WRITE e stampa
-END</div>
+						<div id="editor" class="ace_editor">LOAD= 1     Carico 1
+ADD=5       Ci sommo 5
+DIV=3       Divido per 3
+STORE 100   Salvo nella cella 100
+READ        Leggo dal nastro
+ADD 100 	Sommo alla cella 100
+WRITE       Scrivo a video
+END         Termino il programma</div>
 					</div>
 
 					<!--  Meta DX Pagina (comandi, stack, output) -->
