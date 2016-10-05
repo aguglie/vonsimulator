@@ -17,6 +17,7 @@ Questo programma è una beta, perfino l'html fa cagare, non giudicare!
 <link href="./static/css/bootstrap.min.css" rel="stylesheet">
 <link href="./static/css/font-awesome.min.css" rel="stylesheet">
 <link href="./static/css/custom.css" rel="stylesheet">
+<link href="./static/css/jquery-confirm.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -56,26 +57,84 @@ Questo programma è una beta, perfino l'html fa cagare, non giudicare!
 				<h1 class="page-header top0">Simulatore Macchina di Von Neumann</h1>
 				<!-- <p>Questo simulatore permette di testare e studiare il funzionamento della <b>macchina di Von Neumann</b>.</p>-->
 
+				<div class="col-sm-3" id="esegui">
+					<div class="panel panel-green">
+						<div class="panel-heading">
+							<div class="row">
+								<div class="col-xs-3">
+									<i class="fa fa-play fa-5x"></i>
+								</div>
+								<div class="col-xs-9 text-center">
+									<div class="huge">Esegui</div>
+									<h4 class="text-center">Top to bottom</h4>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!--  Blocco Box -->
+				<div class="col-sm-3" id="esegui_step">
+					<div class="panel panel-gray">
+						<div class="panel-heading">
+							<div class="row">
+								<div class="col-xs-3">
+									<i class="fa fa-step-forward fa-5x"></i>
+								</div>
+								<div class="col-xs-9 text-center">
+									<div class="huge">Step</div>
+									<h4 class="text-center">Riga per riga</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-3">
+					<div class="panel panel-red ">
+						<div class="panel-heading">
+							<div class="row">
+								<div class="col-xs-3">
+									<i class="fa fa-database fa-5x"></i>
+								</div>
+								<div class="col-xs-9 text-center">
+									<div class="huge" id="Accumulatore">n.d.</div>
+									<h4 class="text-center">Valore accumulatore</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-3">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<div class="row">
+								<div class="col-xs-3">
+									<i class="fa fa-file-text-o fa-5x"></i>
+								</div>
+								<div class="col-xs-9 text-center">
+									<div class="huge" id="NastroOut">n.d.</div>
+									<h4 class="text-center">Nastro di Scrittura</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
 				<!--  Meta SX Pagina (box di scrittura) -->
 				<div class="">
 					<div class="col-xs-12 col-sm-7 ">
 						<!-- <h3>Istruzioni da eseguire</h3>-->
-						<div id="editor" class="ace_editor">LOAD= 0 DESCRIZIONE: Somma i numeri pari di una sequenza di positivi terminati da 0
-STORE 102 inizializzazione della somma
-READ lettura del numero
-BEQ 13 salto alla fine del ciclo se il valore letto è 0
-STORE 101 memorizzo il valore letto
-DIV= 2 lo divido per due
-MULT= 2 lo moltiplico per due
-SUB 101 faccio la differenza con il valore letto
-BL 2 se la differenza e minore di 0, il numero letto e dispari
-LOAD 101 se pari, riprendo il valore originario dalla cella 101
-ADD 102 e aggiungo il contenuto della somma corrente
-STORE 102 quindi memorizzo il nuovo valore della somma
-BR 2 fine del ciclo se il numero e pari
-LOAD 102 caricamento della somma
-WRITE e stampa
-END</div>
+						<div id="editor" class="ace_editor">LOAD= 1     Carico 1
+ADD=5       Ci sommo 5
+DIV=3       Divido per 3
+STORE 100   Salvo nella cella 100
+READ        Leggo dal nastro
+ADD 100 	Sommo alla cella 100
+WRITE       Scrivo a video
+END         Termino il programma</div>
 					</div>
 
 					<!--  Meta DX Pagina (comandi, stack, output) -->
@@ -84,54 +143,6 @@ END</div>
 
 						<div class="row">
 							<!--  Blocco Box -->
-							<div class="col-sm-12" id="esegui">
-								<div class="panel panel-green">
-									<div class="panel-heading">
-										<div class="row">
-											<div class="col-xs-3">
-												<i class="fa fa-play fa-5x"></i>
-											</div>
-											<div class="col-xs-9 text-center">
-												<div class="huge">Esegui il listato</div>
-												<!-- <h4>Interpreta il listato</h4>-->
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="col-sm-6">
-								<div class="panel panel-red ">
-									<div class="panel-heading">
-										<div class="row">
-											<div class="col-xs-3">
-												<i class="fa fa-database fa-5x"></i>
-											</div>
-											<div class="col-xs-9 text-center">
-												<div class="huge" id="Accumulatore">n.d.</div>
-												<h4 class="text-center">Valore accumulatore</h4>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="col-sm-6">
-								<div class="panel panel-primary">
-									<div class="panel-heading">
-										<div class="row">
-											<div class="col-xs-3">
-												<i class="fa fa-file-text-o fa-5x"></i>
-											</div>
-											<div class="col-xs-9 text-center">
-												<div class="huge" id="NastroOut">n.d.</div>
-												<h4 class="text-center">Nastro di Scrittura</h4>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
 							<div class="col-sm-12">
 								<div class="panel panel-yellow">
 									<div class="panel-heading">
@@ -162,7 +173,6 @@ END</div>
 								</div>
 							</div>
 
-
 							<!--  ./Blocco Box -->
 						</div>
 					</div>
@@ -185,7 +195,7 @@ END</div>
 	<script src="./static/js/bootstrap.js" type="text/javascript"></script>
 	<script src="./static/ace/ace.js" type="text/javascript"
 		charset="utf-8"></script>
+	<script src="./static/js/jquery-confirm.min.js" type="text/javascript"></script>
 	<script src="./static/js/custom.js" type="text/javascript"></script>
-
 </body>
 </html>

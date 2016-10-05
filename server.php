@@ -40,7 +40,6 @@ if (isset ( $_REQUEST ['exec'] )) {
 	$json->set ( "Asking_Data", NastroIn::asking_data () );
 	$json->set ( "ExecLine", $exec_line );
 	$json->set ( "NextLine", (int)$interprete->get_linen () );
-	
 	$json->render ();
 	exit ();
 }
