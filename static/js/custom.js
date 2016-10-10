@@ -24,32 +24,40 @@ $(document).ready(function () {
     //Gestione pulsantoni:
     $("#esegui").click(function () {
         clearInterval(timer);
-        loadCode();
-        timer = setInterval(function () {
-            exec(true);
-        }, 1000);
+        loadCode(function(){
+          timer = setInterval(function () {
+              exec(true);
+          }, 1000);
+        });
     });
 
     $("#esegui_step").click(function () {
         clearInterval(timer);
-        loadCode();
-        exec(false);
+        loadCode(function(){ exec(false) });
     });
 
 });
 
 /**
- * Carica il codice sul server se non è aggiornato
+ * Carica il codice sul server se non è aggiornato ed esegue la callback
  */
-function loadCode() {
+function loadCode(callback) {
     if (UploadNeeded) {
         UploadNeeded = false;
         var code = editor.getValue();
         $.post("./server.php", {code: code})
             .done(function (data) {
-                //alert("Listato caricato");
+                //Pulisco la memoria ed eseguo la callback
                 $("#Memoria_tbody").empty();
+                if (callback && (typeof callback == "function")) {
+                  callback();
+                }
             });
+    }else{
+      //Se non c'è niente da fare esego subito la callback
+      if (callback && (typeof callback == "function")) {
+        callback();
+      }
     }
 }
 
