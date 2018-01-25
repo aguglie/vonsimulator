@@ -103,7 +103,7 @@ function exec(topBottom) {//topBottom
                     clearInterval(timer);
                     var data = null;
                     $.confirm({
-                        title: 'Natro in Ingresso',
+                        title: 'Nastro in Ingresso',
                         keyboardEnabled: true,
                         confirmButton: 'Invia',
                         confirmButtonClass: 'btn-success',
