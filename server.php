@@ -1,18 +1,20 @@
 <?php
-// Autoload funzioni
 spl_autoload_register ( function ($class) {
 	include realpath ( __DIR__ . '/application/classes/' . $class . '.php' );
 } );
-session_start ();
 
-/**
- * Se viene spedito del codice via POST lo salvo e termino.
- */
+// Dirty 1-line-trick to convert from server-sessions to client-cookie
+$_SESSION = isset($_COOKIE["state"]) ? json_decode($_COOKIE['state'], true) : [];
+
+function persist_session_to_cookie(){
+	setcookie("state", json_encode($_SESSION), time() + 3600);
+}
+
 if (isset ( $_REQUEST ['code'] )) {
 	$_SESSION = Array ();
 	$interprete = new Interprete ();
 	$interprete->set_code ( $_POST ['code'] );
-	exit ();
+	persist_session_to_cookie();
 }
 
 /**
@@ -40,8 +42,9 @@ if (isset ( $_REQUEST ['exec'] )) {
 	$json->set ( "Asking_Data", NastroIn::asking_data () );
 	$json->set ( "ExecLine", $exec_line );
 	$json->set ( "NextLine", (int)$interprete->get_linen () );
+
+	persist_session_to_cookie();
 	$json->render ();
-	exit ();
 }
 
 /**
@@ -55,5 +58,7 @@ if (isset ( $_REQUEST ['NastroIn'] )) {
 		$json->error ( $e->getMessage () );
 		exit ();
 	}
+
+	persist_session_to_cookie();
 	$json->render ();
 }
