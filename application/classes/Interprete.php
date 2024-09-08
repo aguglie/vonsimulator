@@ -82,7 +82,7 @@ class Interprete {
 	 * @param unknown $str        	
 	 */
 	private function find_argomento($str) {
-		$pattern = '/(\d{1,})/i';
+		$pattern = '/(-?\d{1,})/i';
 		preg_match ( $pattern, $str, $matches );
 		if (isset ( $matches [0] )) {
 			$this->argomento = $matches [0];
